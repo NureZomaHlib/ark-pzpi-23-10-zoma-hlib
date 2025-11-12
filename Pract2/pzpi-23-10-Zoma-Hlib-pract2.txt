@@ -1,0 +1,297 @@
+﻿МІНІСТЕРСТВО ОСВІТИ І НАУКИ УКРАЇНИ
+ХАРКІВСЬКИЙ НАЦІОНАЛЬНИЙ
+УНІВЕРСИТЕТ РАДІОЕЛЕКТРОНІКИ
+Кафедра «Програмна інженерія»
+
+
+
+
+
+
+ЗВІТ
+з практичної роботи №2
+з дисципліни «Аналіз та рефакторінг коду»
+на тему «Методи рефакторингу коду: Replace Constructor with Factory Method, Replace Conditional with Polymorphism, Separate Domain from Presentation на прикладі Kotlin»
+
+
+
+
+
+
+
+
+Виконав:                                                           	     Перевірив:
+ст. гр. ПЗПІ-23-10                                                       Старший викл. Кафедри ПІ
+Зьома Г.Я.                                                              	     Сокорчук І.П.
+
+
+
+
+Харків 2025
+1. ІСТОРІЯ ЗМІН
+№ДатаВерсія звітуОпис змін та виправлень107.11.250.1Зроблено основні розділи208.11.250.2Додано слайди презентації та програмний код312.11.250.3Додаємо відеозапис та хронологічний опис2. 
+
+   2. ЗАВДАННЯ
+   Метою роботи було вивчення та практичне застосування трьох методів рефакторингу коду: Replace Constructor with Factory Method, Replace Conditional with Polymorphism, Separate Domain from Presentation.
+   Завдання включало аналіз вихідного коду, ідентифікацію "запахів коду", покрокове вдосконалення структури програмного забезпечення з використанням вказаних методів, а також огляд інструментів для автоматизації рефакторингу в Kotlin.
+
+
+   
+3. ОПИС ВИКОНАНОЇ РОБОТИ
+1. 
+2. 
+     3.1 Вступ
+     Рефакторинг - це процес зміни внутрішньої структури програмного забезпечення для полегшення його розуміння та подальшої модифікації, без зміни його видимої поведінки. Ця тема є надзвичайно актуальною, оскільки рефакторинг є невід'ємною частиною сучасного процесу розробки та підтримки програмних систем. Як зазначав Мартін Фаулер, це дисциплінована техніка для покращення дизайну існуючого коду.
+     Основна мета рефакторингу — зробити код "чистішим", простішим та більш виразним. Це, в свою чергу, полегшує підтримку коду, спрощує додавання нових функцій та виправлення помилок. Шляхом усунення дублювання та непотрібних ускладнень рефакторинг допомагає зменшити загальну складність системи.
+     3.2  Огляд обраних методів
+     Для виконання практичної роботи було обрано три методи рефакторингу, які вирішують поширені проблеми в архітектурі коду.
+- Replace Constructor with Factory Method: Цей метод полягає у заміні прямого виклику конструктора на виклик спеціального "фабричного" методу. Це вирішує проблеми невиразних конструкторів, складної логіки ініціалізації та надає гнучкості.
+- Replace Conditional with Polymorphism: Метод пропонує замінити складні умовні оператори (наприклад, when або if/else), що перевіряють тип об'єкта, на використання поліморфізму. Логіка переноситься у окремі методи класів-спадкоємців. Це усуває порушення Принципу відкритості/закритості (OCP) та покращує читабельність.
+- Separate Domain from Presentation: Це архітектурний підхід, що вимагає чіткого розділення коду бізнес-логіки (Домен) від коду, відповідального за відображення даних (Представлення). Це вирішує проблеми змішування відповідальностей, низької тестуємості та складності повторного використання коду.
+     3.3 Метод Replace Constructor with Factory Method
+     Прямий виклик конструкторів може бути невиразним, особливо при наявності однакових типів параметрів. Конструктори обмежені у своїй логіці: вони не можуть повертати підклас, кешований екземпляр або null. Також у них може накопичуватись складна логіка ініціалізації. 
+     Вирішити це можна перенесенням логіки створення об’єкта у статичний "фабричний" метод (у Kotlin це часто робиться через companion object). Конструктор робиться приватним. Фабричні методи мають описові імена, що покращує читабельність. Вони дозволяють винести складну логіку ініціалізації та надають гнучкість у поверненні об'єктів.
+     У вихідному коді був простий конструктор класу User [Б.1]. Після рефакторингу конструктор став приватним, а для створення об'єктів використовуються фабричні методи createGuest() та createAuthenticated() [Б.2].
+     3.4 Метод Replace Conditional with Polymorphism
+     Наявність умовних операторів ( if/else, when), які обирають поведінку залежно від типу об'єкта. Це призводить до порушення Принципу відкритості/закритості (OCP), оскільки додавання нового типу вимагає зміни існуючого коду. Такі конструкції також погіршують читабельність та можуть призводити до дублювання код.
+     Логіка з умовного оператора переноситься у окремі методи класів-спадкоємців. Часто для цього використовується базовий абстрактний або sealed (запечатаний) клас.
+     Усуває необхідність у великих when/if блоках. Полегшує додавання нових типів (достатньо створити новий клас-спадкоємець). Покращує читабельність та підтримку коду.
+     У коді "до" клас Animal використовував оператор when для визначення звуку на основі enum [Б.3]. Після рефакторингу Animal став sealed class з абстрактним методом makeSound(). Кожен підклас (Dog, Cat) реалізує цей метод [Б.4].
+     3.5 Метод Separate Domain from Presentation
+     Змішування відповідальностей, коли бізнес-логіка (наприклад, розрахунок суми) знаходиться в одному класі з логікою відображення (наприклад, форматування рядка для UI). Це робить код "крихким", ускладнює юніт-тестування бізнес-логіки та її повторне використання.
+     Треба робити чітке розділення коду на окремі шари. Доменний шар (чисті класи даних та бізнес-логіки) не повинен знати про шар представлення. Шар представлення (наприклад, ViewModel) використовує доменні класи для отримання даних та застосовує логіку форматування для UI. Це покращує тестуємість (бізнес-логіку можна тестувати ізольовано). Спрощує повторне використання доменної логіки. Робить код більш гнучким до змін у UI.
+     У коді "до" CartViewModel одночасно розраховував суму та форматував її для відображення [Б.5]. Після рефакторингу створено доменний клас Cart, який відповідає лише за розрахунки. CartViewModel тепер використовує Cart та відповідає лише за форматування результату [Б.6].
+     3.6 Результати рефакторингу
+     Для демонстрації комплексного ефекту був проаналізований вихідний код, який мав одразу три "запахи коду" [Б.7]:
+- Використання String у конструкторі для визначення типу.
+- Використання if/else для визначення бізнес-логіки (комісії).
+- Змішування бізнес-логіки (розрахунок) з логікою представлення (форматування рядка).
+     Після послідовного застосування трьох обраних методів [Б.8] було досягнуто наступних результатів:
+- Умова замінилися поліморфізмом: if/else для комісії замінено на sealed class Customer з підкласами Vip та Regular, кожен з яких інкапсулює власну логіку getCommission().
+- Конструктор замінився фабричним методом: створено companion object з методом create(type: String) для інкапсуляції логіки вибору типу клієнта на основі рядка.
+- Відокремлення домену: Клас Order тепер містить лише бізнес-логіку (calculateTotal()), яка залежить від поліморфного Customer. Логіка форматування винесена у окремий клас InvoicePresenter.
+     3.7 Інструменти рефакторингу
+     Для проведення рефакторингу в екосистемі Kotlin існують спеціалізовані інструменти:
+- IntelliJ IDEA / Android Studio: Надає потужні вбудовані функції рефакторингу (Extract Method, Rename, Change Signature) та автоматичні інспекції коду.
+- Detekt: Статичний аналізатор коду для Kotlin, який допомагає знаходити "запахи коду" та є першим кроком до рефакторингу.
+- Ktlint: Лінтер та форматер коду, що допомагає підтримувати єдиний стиль, покращуючи читабельність.
+
+
+4. ВИСНОВКИ
+     Під час виконання даної практичної роботи було детально проаналізовано та продемонстровано застосування трьох фундаментальних методів рефакторингу: Заміна конструктора фабричним методом, Заміна умовної логіки поліморфізмом та Відокремлення домену від представлення.
+     Виконана робота практично підтвердила, що ці методи надають розробнику потужні інструменти для покращення кодової бази:
+- Replace Constructor with Factory Method вирішує проблему невиразних конструкторів та надає гнучкість у процесі створення об'єктів, інкапсулюючи складну логіку ініціалізації.
+- Replace Conditional with Polymorphism дозволяє усунути складні умовні блоки (when, if/else), які часто порушують Принцип відкритості/закритості (OCP), переносячи логіку у окремі класи-спадкоємці.
+- Separate Domain from Presentation є ключовим архітектурним патерном, що покращує тестуємість , спрощує повторне використання бізнес-логіки та запобігає змішуванню відповідальностей.
+     Як було показано на демонстраційному прикладі, ці методи часто застосовуються разом для перетворення коду, що має одразу декілька "запахів" , у гнучку, керовану та зрозумілу архітектуру.
+     Найважливіший висновок полягає в тому, що рефакторинг - це не одноразова дія, а постійний, безперервний процес. Це "гігієна коду", яка є життєво важливою для довгострокової підтримки та "здоров'я" будь-якого програмного проєкту. Рефакторинг слід застосовувати регулярно: перед додаванням нової функціональності, після виправлення помилок, або щоразу, коли виявляється "запах коду". Для безпечного проведення рефакторингу ключовою є наявність набору тестів, які гарантують, що поведінка системи не була змінена. Таким чином, рефакторинг є стратегічною інвестицією у майбутнє проєкту, що полегшує його підтримку, модифікацію та розширення.
+
+
+5. СПИСОК ВИКОРИСТАНИХ ДЖЕРЕЛ
+     1. Фаулер Мартін. "Refactoring: Improving the Design of Existing Code: https://martinfowler.com/books/refactoring.html (date of access: 07.10.2025)
+     2. Kotlin Official Documentation: https://kotlinlang.org/docs/home.html (date of access: 07.10.2025)
+     3. Мартін Роберт. "Clean Code: A Handbook of Agile Software Craftsmanship": https://www.informit.com/store/clean-code-a-handbook-of-agile-software-craftsmanship-9780132350884 (date of access 07.10.2025)
+     4. Refactoring.guru: https://refactoring.guru/ (date of access 07.10.2025)
+
+
+ДОДАТОК А
+Посилання відео на Youtube
+Відеозапис доповіді: https://www.youtube.com/watch?v=RBIRkz19WVE
+Хронологічний опис відеозапису:
+0:00 - Вступ 
+0:33 – Мета рефакторингу 
+1:12 – Replace Constructor with Factory Method 
+2:12 – Приклад Replace Constructor with Factory Method
+2:53 – Replace Conditional with Polymorphism 
+3:52 – Приклад Replace Conditional with Polymorphism
+4:30 – Separate Domain from Presentation
+5:29 – Приклад Separate Domain from Presentation
+6:17 -  Комплексний приклад
+6:53 – Комплексний приклад після рефакторингу
+7:50 – Інструменти рефакторингу в Kotlin.
+8:40 - Висновки
+
+
+ДОДАТОК Б
+Слайди презентації
+
+Рисунок Б.1 – Титульний лист
+
+
+Рисунок Б.2 – Що таке рефакторинг?
+
+Рисунок Б.3 – Мета та ключові методи
+
+
+Рисунок Б.4 – Replace Constructor with Factory Method
+
+Рисунок Б.5 – Factory Method в Kotlin
+
+Рисунок Б.6 – Replace Conditional with Polymorphism
+
+Рисунок Б.7 – Поліморфізм в Kotlin
+
+
+Рисунок Б.8 – Separate Domain from Presentation
+
+
+Рисунок Б.9 – Відокремлення логіки
+
+
+Рисунок Б.10 – Покрокова демонстрація
+
+
+Рисунок Б.11 – Демонстрація: Код До і Після
+
+
+Рисунок Б.12 – Інструменти рефакторингу в Kotlin
+
+
+Рисунок Б.13 – Висновки
+
+Рисунок Б.14 – Список використаних джерел
+
+
+
+ДОДАТОК В
+Програмний код
+В.1 Метод "Replace Constructor with Factory Method" до рефакторингу
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+1 class User(
+2     val name: String,
+3     val age: Int
+4 ) {
+5     // ...
+6 }
+7 
+8 val user = User("Alex", 30)
+В.2 Метод "Replace Constructor with Factory Method" після рефакторингу
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+1 class User private constructor(
+2     val name: String
+3 ) {
+4     companion object {
+5         fun createGuest(): User {
+6             return User("Guest")
+7         }
+8 
+9         fun createAuthenticated(name: String): User {
+10             return User(name)
+11         }
+12     }
+13 }
+14 
+15 val guest = User.createGuest()
+
+В.3 Метод "Replace Conditional with Polymorphism" до рефакторингу
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+1 enum class AnimalType { DOG, CAT }
+2 
+3 class Animal(val type: AnimalType) {
+4     fun makeSound(): String {
+5         return when (type) {
+6             AnimalType.DOG -> "Woof!"
+7             AnimalType.CAT -> "Meow!"
+8         }
+9     }
+10 }
+
+В.4 Метод "Replace Conditional with Polymorphism" після рефакторингу
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+1 class Animal {
+2     abstract fun makeSound(): String
+3 }
+4 
+5 class Dog : Animal() {
+6     override fun makeSound() = "Woof!"
+7 }
+8 
+9 class Cat : Animal() {
+10     override fun makeSound() = "Meow!"
+11 }
+В.5 Метод "Separate Domain from Presentation" до рефакторингу
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+1 class CartViewModel {
+2     fun getDisplayTotal(items: List) {
+3         var total = 0.0
+4         for (item in items) {
+5             total += item.price * (1 - item.discount)
+6         }
+7 
+8         // Відображення:
+9         textView.text = "Total: ${total}"
+10    }
+11 }
+
+В.6 Метод "Separate Domain from Presentation" після рефакторингу
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+1 class Cart(val items: List) {
+2     fun calculateTotal(): Double {
+3         return items.sumOf {
+4             it.price * (1 - it.discount)
+5         }
+6     }
+7 }
+8 
+9 class CartViewModel(private val cart: Cart) {
+10    fun getDisplayTotal(): String {
+11        val total = cart.calculateTotal()
+12        return "Total: ${String.format("%.2f", total)}"
+13    }
+14 }
+
+В.7 Комплексний приклад – до рефакторингу
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+1 class Order(
+2     val type: String,
+3     val amount: Double
+4 ) {
+5     fun getInvoice(): String {
+6         val commission = if (type == "VIP") {
+7             0.0
+8         } else {
+9             0.05
+10        }
+11 
+12        val total = amount * (1 + commission)
+13 
+14        return "--- INVOICE ---\nTotal: $total USD"
+15    }
+16 }
+
+В.8 Комплексний приклад – після рефакторингу
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+1 class Customer {
+2     abstract fun getCommission(): Double
+3 
+4     companion object {
+5         fun create(type: String): Customer {
+6             return if (type == "VIP") Vip() else Regular()
+7         }
+8     }
+9 }
+10
+11 class Vip : Customer() {
+12     override fun getCommission() = 0.0
+13 }
+14
+15 class Regular : Customer() {
+16     override fun getCommission() = 0.05
+17 }
+18
+19 class Order(
+20     val customer: Customer,
+21     val amount: Double
+22 ) {
+23     fun calculateTotal() = amount * (1 + customer.getCommission())
+24 }
+25
+26 class InvoicePresenter {
+27     fun format(order: Order): String {
+28         val total = order.calculateTotal()
+29         return "--- INVOICE ---\nTotal: $total USD"
+30     }
+31 }
+25
+
+
