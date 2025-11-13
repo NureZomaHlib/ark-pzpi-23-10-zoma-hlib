@@ -28,7 +28,23 @@
 
 Харків 2025
 1. ІСТОРІЯ ЗМІН
-№ДатаВерсія звітуОпис змін та виправлень112.10.250.1Зроблено основні розділи215.10.250.2Додано слайди презентації та програмний код322.10.250.3Додаємо відеозапис та хронологічний опис2. 
+№
+Дата
+Версія звіту
+Опис змін та виправлень
+1
+12.10.25
+0.1
+Зроблено основні розділи
+2
+15.10.25
+0.2
+Додано слайди презентації та програмний код
+3
+22.10.25
+0.3
+Додаємо відеозапис та хронологічний опис
+2. 
 
    2. ЗАВДАННЯ
       Метою даної роботи є комплексне опанування принципів написання якісного, зрозумілого та ефективного коду на мові програмування Kotlin. Завдання полягає не лише у вивченні теоретичних основ стилю кодування, але й у формуванні практичних навичок їх застосування під час реальної розробки. Ключовим аспектом є демонстрація того, як суворе дотримання принципів чистого коду – включаючи чітке іменування, правильне структурування, використання переваг null-safety, функцій вищого порядку та сучасних мовних конструкцій – безпосередньо впливає на якість програмного забезпечення. Важливо показати, що послідовне застосування цих підходів дозволяє уникнути типових помилок, значно підвищує читабельність та підтримуваність коду, спрощує процес рефакторингу та тестування, а також створює основу для ефективної командної роботи. Опанування цих навичок є невід’ємною складовою підготовки сучасного розробника та забезпечує здатність створювати надійний, гнучкий і професійний програмний код.
@@ -130,7 +146,7 @@
 ДОДАТОК В
 Програмний код
 В.1 Поганий і хороший стиль коду
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/ark-pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
 1  // Погано
 2  fun f(a:Int,b:Int)=a+b // незрозуміла назва, немає відступів
 3
@@ -140,7 +156,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 7  }
 
 В.2 Зрозумілі імена змінних, функцій, класів
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/ark-pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
 1  // Погано
 2  var x = "Ivan" // незрозуміле ім’я
 3  fun f(a: Int, b: Int) = a + b // невідомо, що робить функція
@@ -156,7 +172,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 13  const val MAX_USERS = 100
 
 В.3 Іменування
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/ark-pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
 1  // Погано
 2  var x = "Ivan" // незрозуміле ім’я
 3  fun f(a: Int, b: Int) = a + b // невідомо, що робить функція
@@ -172,7 +188,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 13  const val MAX_USERS = 100
 
 В.4 Коментарі та документація
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/ark-pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
 1  // Погано
 2  // функція для додавання
 3  fun sum(a: Int, b: Int): Int {
@@ -192,7 +208,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 17  }
 
 В.5 Інструменти для чистого коду
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/ark-pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
 // без форматування
 1 class Foo(
 2     val id : String, val age : Int,
@@ -214,7 +230,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 
 
 В.6 Функції та лямбди в Kotlin
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/ark-pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
 1  // Погано
 2  fun process(list: List<Int>): List<Int> {
 3    val result = mutableListOf<Int>()
@@ -232,7 +248,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 15      .map { it * 2 }
 
 В.7 Рефакторинг та підтримка коду
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/ark-pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
 1  // Погано
 2  fun doEverything() {
 3    val a = 10
@@ -249,7 +265,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 14  }
 
 В.8 Обробка помилок у Kotlin
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/ark-pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
 1  // Погано
 2  val input: String? = null
 3  println(input!!.length)
@@ -269,7 +285,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 17  }
 
 В.9 Практичні поради для чистого коду
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract1/ark-pzpi-23-10-zoma-hlib-pract1/code-examples-code-conventions.kt 
 1  // Погано
 2  fun calculate() {
 3    val a = 10 + 20

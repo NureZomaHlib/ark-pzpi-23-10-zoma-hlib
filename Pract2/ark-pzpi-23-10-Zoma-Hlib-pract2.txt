@@ -29,7 +29,23 @@
 
 Харків 2025
 1. ІСТОРІЯ ЗМІН
-№ДатаВерсія звітуОпис змін та виправлень107.11.250.1Зроблено основні розділи208.11.250.2Додано слайди презентації та програмний код312.11.250.3Додаємо відеозапис та хронологічний опис2. 
+№
+Дата
+Версія звіту
+Опис змін та виправлень
+1
+07.11.25
+0.1
+Зроблено основні розділи
+2
+08.11.25
+0.2
+Додано слайди презентації та програмний код
+3
+12.11.25
+0.3
+Додаємо відеозапис та хронологічний опис
+2. 
 
    2. ЗАВДАННЯ
    Метою роботи було вивчення та практичне застосування трьох методів рефакторингу коду: Replace Constructor with Factory Method, Replace Conditional with Polymorphism, Separate Domain from Presentation.
@@ -156,7 +172,7 @@
 ДОДАТОК В
 Програмний код
 В.1 Метод "Replace Constructor with Factory Method" до рефакторингу
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/ark-pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
 1 class User(
 2     val name: String,
 3     val age: Int
@@ -166,7 +182,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 7 
 8 val user = User("Alex", 30)
 В.2 Метод "Replace Constructor with Factory Method" після рефакторингу
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/ark-pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
 1 class User private constructor(
 2     val name: String
 3 ) {
@@ -184,7 +200,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 15 val guest = User.createGuest()
 
 В.3 Метод "Replace Conditional with Polymorphism" до рефакторингу
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/ark-pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
 1 enum class AnimalType { DOG, CAT }
 2 
 3 class Animal(val type: AnimalType) {
@@ -197,7 +213,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 10 }
 
 В.4 Метод "Replace Conditional with Polymorphism" після рефакторингу
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/ark-pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
 1 class Animal {
 2     abstract fun makeSound(): String
 3 }
@@ -210,7 +226,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 10     override fun makeSound() = "Meow!"
 11 }
 В.5 Метод "Separate Domain from Presentation" до рефакторингу
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/ark-pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
 1 class CartViewModel {
 2     fun getDisplayTotal(items: List) {
 3         var total = 0.0
@@ -224,7 +240,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 11 }
 
 В.6 Метод "Separate Domain from Presentation" після рефакторингу
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/ark-pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
 1 class Cart(val items: List) {
 2     fun calculateTotal(): Double {
 3         return items.sumOf {
@@ -241,7 +257,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 14 }
 
 В.7 Комплексний приклад – до рефакторингу
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/ark-pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
 1 class Order(
 2     val type: String,
 3     val amount: Double
@@ -260,7 +276,7 @@ GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zo
 16 }
 
 В.8 Комплексний приклад – після рефакторингу
-GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
+GitHub репозиторій: https://github.com/NureZomaHlib/ark-pzpi-23-10-zoma-hlib/blob/main/Pract2/ark-pzpi-23-10-zoma-hlib-pract2/code_examples_refactoring_methods.kt 
 1 class Customer {
 2     abstract fun getCommission(): Double
 3 
